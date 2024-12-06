@@ -2,7 +2,9 @@
 
 ## Sobre o projeto
 
-Esse projeto foi um teste para aprender um pouco sobre APIs Rest com Django, como primeiros contatos com **criações de APIs para back-end**. Os dados armazenados são dados muito simples de usuários para um prograama qualquer, e o CRUD possibilita a criação de novos ítens para a API, edição, exclusão e visualização. O repositório, ideia e código foram 100% baseados neste vídeo https://www.youtube.com/watch?v=Q2tEqNfgIXM, portanto, gostaria de agradecer ao criador ao disponibilizar seu código e tornar possível a compreensão das APIs Rest com python. Vi muito valor no vídeo e no aprendizado que tive com APIs seguindo este tutorial.
+Esse projeto foi um teste para aprender um pouco sobre APIs Rest com Django, como primeiros contatos com **criações de APIs para back-end**. Os dados armazenados são dados muito simples de usuários para um prograama qualquer, e o CRUD possibilita a criação de novos ítens para a API, edição, exclusão e visualização.
+
+O repositório, ideia e código foram 100% baseados neste vídeo https://www.youtube.com/watch?v=Q2tEqNfgIXM, portanto, gostaria de agradecer ao criador ao disponibilizar seu código e tornar possível a compreensão das APIs Rest com python. Vi muito valor no vídeo e no aprendizado que tive com APIs seguindo este tutorial.
 
 ## Como rodar em sua máquina
 
