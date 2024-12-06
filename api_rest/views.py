@@ -23,7 +23,7 @@ def get_users(request):
 
     return Response(status = status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 def get_by_nick(request, nick):
 
     try:
@@ -34,6 +34,16 @@ def get_by_nick(request, nick):
     if request.method == 'GET':
         serializer = UserSerializer(user) #nao usa many pois deve devolver objeto único
         return Response(serializer.data)
+    
+    if request.method == 'PUT':
+        serializer = UserSerializer(user, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
     
 @api_view(['GET', 'POST', 'PUT', 'DELETE']) #habilista o post e etc
 def user_manager(request):
@@ -56,13 +66,43 @@ def user_manager(request):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    #criando dados
 
+    if request.method == 'POST':
 
-#def databaseEmDjango():
+        new_user = request.data
 
-#    data = User.objects.get(pk = 'nogsposito') #devolve objeto! (pegando primary key (username))
-#    data = User.objects.filter(user_age='18') #devolve queryset, nao objeto! ineditavel
-#    data = User.objects.exclude(user_age='18') #todos que NAO tem 18 (também queryset)
-#
-#    data.save()
-#    data.delete()
+        serializer = UserSerializer(data = new_user) #criado com dados dados pela requisicao
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+
+        return Response(status = status.HTTP_400_BAD_REQUEST)
+    
+    if request.method == 'PUT':
+
+        nickname = request.data['user_nickname']
+
+        try:
+            updated_user = User.objects.get(pk = nickname) #referenciado pelo objeto procurado
+        except:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        
+        print(f"Data = {request.data}")
+
+        serializer = UserSerializer(updated_user, data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == 'DELETE':
+        try:
+            user_to_delete = User.objects.get(pk=request.data(['user_nickname']))
+            user_to_delete.delete()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
